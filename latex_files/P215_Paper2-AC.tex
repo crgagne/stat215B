@@ -1,0 +1,737 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass{article}
+
+    
+    
+    \usepackage{graphicx} % Used to insert images
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{color} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    
+
+    
+    
+    \definecolor{orange}{cmyk}{0,0.4,0.8,0.2}
+    \definecolor{darkorange}{rgb}{.71,0.21,0.01}
+    \definecolor{darkgreen}{rgb}{.12,.54,.11}
+    \definecolor{myteal}{rgb}{.26, .44, .56}
+    \definecolor{gray}{gray}{0.45}
+    \definecolor{lightgray}{gray}{.95}
+    \definecolor{mediumgray}{gray}{.8}
+    \definecolor{inputbackground}{rgb}{.95, .95, .85}
+    \definecolor{outputbackground}{rgb}{.95, .95, .95}
+    \definecolor{traceback}{rgb}{1, .95, .95}
+    % ansi colors
+    \definecolor{red}{rgb}{.6,0,0}
+    \definecolor{green}{rgb}{0,.65,0}
+    \definecolor{brown}{rgb}{0.6,0.6,0}
+    \definecolor{blue}{rgb}{0,.145,.698}
+    \definecolor{purple}{rgb}{.698,.145,.698}
+    \definecolor{cyan}{rgb}{0,.698,.698}
+    \definecolor{lightgray}{gray}{0.5}
+    
+    % bright ansi colors
+    \definecolor{darkgray}{gray}{0.25}
+    \definecolor{lightred}{rgb}{1.0,0.39,0.28}
+    \definecolor{lightgreen}{rgb}{0.48,0.99,0.0}
+    \definecolor{lightblue}{rgb}{0.53,0.81,0.92}
+    \definecolor{lightpurple}{rgb}{0.87,0.63,0.87}
+    \definecolor{lightcyan}{rgb}{0.5,1.0,0.83}
+    
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Curds and Whey Regression Applied to
+fMRI}
+\author{Chris Gagne and Alan Cowen}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=blue,
+      linkcolor=darkorange,
+      citecolor=darkgreen,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+
+
+
+    
+
+\section{Introduction}\label{introduction}
+
+When making multiple inferences simultaneously, performance on each
+can be improved by pooling information across problems. Moreover, the
+amount of improvement depends in part on how similar the problems are.
+For fMRI data, inference is typically done for each individual voxel (volumetric pixel),
+but we anticipate that gains can be made by combining inference across
+multiple voxels. fMRI data is characterized by spatial correlations
+across voxels, some of which is due to a functionally-modular
+topographic organization of cortex. Therefore, this spatially correlated
+signal may make fMRI particularly conducive to a technique that joins
+inference across voxels. The particular technique we chose was the
+"Curds and Whey Regression'' (CW) proposed by (Breiman and Friedman
+1997)(BF).
+
+Our project has three major parts. First, we wanted to replicate the
+simulation results of Breiman and Friedman to verify that our
+implementation was correct, and assess CW's performance across a range
+of situations. Second, we wanted to apply CW to simulated fMRI data to
+assess its performance in a more realistic simulation. Finally, we
+applied CW to a real fMRI data set, in which we predict held out data in
+order to choose scientific models of cortical organization.
+
+\section{Background}\label{background}
+
+\subsection{Setup}\label{setup}
+
+Our setup is one of predicting the activity in multiple brain voxels
+using experimental predictors (stimuli presented to the
+participant). We are interested in both predicting new voxel responses,
+and estimating the `true' parameters underlying the voxel responses.
+
+The voxel responses at a given time point is a row vector $ \textbf{y'}
+= (y_1, \dots ,y_q) $, where each $y_i$ is a voxel. We've assumed that each voxel's response can
+be described as a linear combination $ \beta $ of responses to our
+experimental manipulation $ \textbf{x}=(x_1, \dots ,x_p) $ and
+additional zero-mean error. The errors are assumed to be independent across time, but potentially correlated across the q voxels. 
+
+\[ y_i = \textbf{x} \beta_i + \epsilon_i \ | \ i =1,...,q  \]  
+
+
+\subsubsection{OLS}\label{ols}
+
+In the typical approach to fMRI analysis, we stack the y's and x's
+across the n time points and solve using OLS, in which the estimation
+for each y is solved independently of all others.
+
+\[ \hat \beta_{ols} =  (\textbf{X}'\textbf{X})^{-1} \textbf{X}' \textbf{Y} \]
+\[ \hat Y = \textbf{X} \hat \beta_{ols} \]
+$$ (nxq) = (nxp)(pxq) $$
+
+Although OLS is the minimum variance unbiased estimator, improvements in
+prediction can be made by shrinking the estimates towards zero. Copas
+(1983) showed that the expected slope of a regression of future y's on
+our OLS estimates $ \hat y $ will be less than 1. Therefore, his method
+and many others shrink the $ \hat y $ prior to prediction.
+
+\subsubsection{Ridge}\label{ridge}
+
+One such method is Ridge Regression which estimates the amount of
+shrinkage $ \lambda $ using cross-validation. We currently use Ridge
+on our data.
+
+\[ \hat \beta_{rr} =  (\textbf{X}'\textbf{X} + I_p \lambda )^{-1} \textbf{X}' \textbf{Y} \]
+
+\subsubsection{OLS-Curds-Whey}\label{ols-curds-whey}
+
+Both Ridge Regression and Copas' method shrink the OLS estimates based
+just on x. BF proposed that further improvements can be made in
+situations with multiple responses. Their method is based on multiplying the
+OLS estimates by a shrinkage matrix S that incorporates the relationship
+between multiple y's and x's.
+
+\[  \tilde Y= \textbf{X} \hat \beta_{ols} S^{cw} \]
+$$ (nxq) = (nxp)(pxq)(qxq) $$
+
+BF derive the optimal shrinkage matrix (in an idealized setting), and
+highlight its relation to a canonical correlations analysis (CCA) of x
+and y. To see this, we start with the following combination of
+covariances for y and x,
+
+\[ Q = E(yy^T)^{-1}E(yx^T)E(xx^T)^{-1}E(xy^T) \]
+
+which BF show relates to optimal shrinkage in the following way (where r
+is the ratio of p/n):
+
+\[ S^{cw} = ((1-)I+rQ^{-T})^{-1} \]
+
+In CCA, Q is usually decomposed into its eigenvectors and eigenvalues.
+
+\[ Q = T C^2 T^{-1} \]
+
+where T represents a new basis for Y in which the covariance between Y
+and X is a diagonal matrix C whose elements are maximized across all
+possible bases for X and Y. (The square root of these diagonal elements are known as the canonical
+correlations of X and Y). Using this decomposition, we can re-write the optimal shrinkage matrix
+as,
+
+\[ S^{cw} = T D T^{-1} \] 
+
+where the diagonal matrix $D$ is a scaled version of the canonical correlation matrix $C^2$. The scaling factor is, 
+
+\[ d_i = \frac{c_i^2}{c_i^2 + r(1-c_i^2)} \]
+
+ where $d_i$ and $ c_i^{2} $ are the diagonal elements of the $D$ and $ C^2 $, respectively.
+
+
+Thus this decomposition uncovers the mechanisms behind BF's shrinkage.
+Multiplying \(\hat Y\) by $ S^{cw} $
+transforms y into a new basis where x and y are maximally correlated,
+shrinks relative to the canonical correlations, and inversely transforms
+back. Intuitively, CCA has found a new basis for our voxels y and
+experimental manipulation x in which they have the strongest mutual
+relationship. For example, an important dimension in Y space may be one
+in which many voxels respond similarly to a certain experimental
+manipulation. Shrinkage by D will preserve this dimension while
+shrinking less important ones (ie. noise dimensions).
+
+In practice, we estimate Q with our observed data:
+
+\[ Q = E(Y^T Y)^{-1}E(Y^T X)E(X^T X)^{-1}E(X^T Y) \]
+
+Then because our sample estimates for the values of $ c^{2} $ tend to
+be too high, we adjust those as well. Using generalized cross
+validation (gcc), we can approximate how much we should decrease the canonical
+correlations.
+
+\[ d_i = \frac{(1-r)(c_i^2-r)}{(1-r)^2c_i^2 + r^2(1-c_i^2)} \]
+
+This is the formula for $d_i$  we use in our implementation. It is important to note that
+when q\textgreater{}p, there are only p canonical correlations.
+Therefore, like BF, we set those elements in D=0.
+
+\subsubsection{Ridge-Curds-Whey}\label{ridge-curds-whey}
+
+In situations where p is close to n, it may be beneficial to combine
+ridge and CW shrinkage. To do this, you multiply the estimates found via
+ridge regression by a similar shrinkage matrix.
+
+\[  \tilde Y= \textbf{X} \hat \beta_{rr} S^{cw} \]
+
+Two differences to the above procedure are that the CCA was done on $
+(Y, \hat Y_{rr}) $ rather than on (Y, X), and r is calculated
+using 
+\[ \frac{1}{N} trace ((\textbf{X}^T \textbf{X} + I_p \lambda )^{-1} \textbf{X}^T) \]
+
+which can be considered the effective degrees of freedom of the model. We also performed CCA on $X$ and $Y$, as was done for OLS, and the results were very similar. 
+\subsubsection{Double Ridge}\label{double-ridge}
+
+As an alternative approach to using CW and CCA, we tried to estimate the
+optimal shrinkage directly by predicting Y from $ \hat Y $ using a second step of ridge regression:
+
+\[ \hat S = argmin_{S} (||Y –  S  \hat Y|| + \gamma|| S|| \]
+
+To account for overfitting in the first step of ridge, we used the out-of-sample $ \hat Y $ from when cross-validation was used to determine the optimal $\lambda$ (taking the predictions from the lambda that was eventually chosen). To select $\gamma$, the penalty parameter for the second step of ridge, we used another step of cross validation on the estimation set (with the same 9 folds).
+
+When we regressed Y onto $ \hat Y $ during the second step of ridge, we only used the $ \hat Y $ of voxels in a surrounding neighborhood of 25. This was a practical step because using all of the many thousands of voxels would have required a massive  amount of regularization, and voxels that were further away would likely have contributed less relevant information. 
+
+After cross-validation, we selected the $ \gamma $ that resulted in
+the highest correlation between $ (Y , S \hat Y) $. This was done
+separately for each voxel, i.
+
+\subsubsection{Cross-validated-Curds-Whey}
+
+For both the OLS-Curds-Whey and the Ridge-Curds-Whey, the diagonal matrix $D$ was composed of the scaled canonical correlations of X and Y ($ c^2 $). For this model, we replaced the scaled canonical correlations in D with completely new values chosen via cross-validation. 
+
+Within each k fold of k-fold cross-validation, we recalculated the y canonical basis $T_k$, and $
+\hat \beta_k$, using only the training set. We then projected both $Y_k$ and predictions $\hat Y_k$, into the new training set bases to form $T_k Y_k$ and $T_k \hat Y $. After all the folds, we concatenated these matrices and regressed each column of transformed $T_k Y_k$ onto the respective column of $T_k \hat Y $. The slopes from these regressions were then used as the diagonal elements in $D$. $D$ was not further adjusted after this point. Finally, a new canonical correlation analysis was performed on the whole dataset, and $ D $ was added to form the shrinkage matrix, $ S^{cw} = T D T^{-1} $. 
+
+The basic idea behind this is the same as above; out-of-sample y's were regressed on predicted $\hat y$'s, but both sets were transformed into in the y canonical space first. 
+
+
+
+
+
+
+\section{Part I: Simulations (BF)}\label{part-i-simulations-bf}
+
+\subsection{Summary}
+
+The two primary goals of these simulations were to verify our
+implementation of the CW shrinkage applied to OLS and Ridge Regression,
+and to identify situations in which it is most beneficial. We ran 50
+simulations on each of the 4 models (excluding Double Ridge) with each
+of the following values of parameters:
+
+\begin{itemize}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  n observations (200,400)
+\item
+  p parameters in our design matrix (11,21,51)
+\item
+  q responses y (5,10,20,50)
+\item
+  SNR (signal-to-noise ratio) (.01,.1,.5,1,2)
+\item
+  bsig: variance in the distribution of true B (.01,.1,.5,1,2)
+\end{itemize}
+
+\subsection{Data Generation}\label{data-generation}
+
+The data for each simulation was generated in a similar fashion to BF.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  X: Each x was chosen as a random draw from multivariate Guassian with
+  a covariance $ \textbf{V} $ that was itself randomly generated for
+  each simulation. Each entry in the covariance was random number from
+  -1 to 1.
+\item
+  B: The true parameters were generated independently across x, but
+  dependently across y. For each x, a random value was chosen from -1 to
+  1 to be the mean of the true parameter B. The B were then sampled from
+  that Guassian with a width determined by our free parameter (bsig).
+  With a small variance, the y's would have similar B, a situation that
+  should favor CW.
+\item
+  F: The signal matrix was calculated as $ \beta XX^{T} \beta^{T} $.
+  This was then used to adjust the error variance \(\sigma\) so that
+  different values of bsig would not adjust the overall SNR. $
+  \sigma $ was related to the overall signal so that SNR =
+  mean(F)/sigma.
+\item
+  $ \epsilon $: Were independently drawn from a gaussian with mean
+  zero and covariance $ I_q \sigma $ .
+\item
+  We then divided into training and test sets (centering within each),
+  fit the model on the training set and predicted the test set. We
+  assessed performance on both the training set (estimation of true B)
+  and the test set (prediction accuracy).
+\end{enumerate}
+
+\subsection{Performance Metrics}\label{performance-metrics}
+
+\begin{itemize}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  \textbf{Estimation error}: As fMRI analyses are often aimed at
+  estimating the effects of some experimental manipulation, we wanted to
+  assess how well the models estimated the true parameters in the
+  training set. Following BF we used the following loss function, where
+  V is the true covariance used to generate the X.
+\end{itemize}
+
+\[ est.mse = |\beta-\hat \beta|^T V |\beta - \hat \beta| \]
+
+\begin{itemize}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  \textbf{Prediction accuracy}: For predictive performance, we measure
+  the correlation of each response $ y_i$ in the test set with its
+  estimate \(\hat y_i\). Correlation is used as a metric in this approach because in fMRI, response magnitude is a relative quantity anyway (i.e. there are gradual drifts in mean and standard deviation over time).
+  
+\end{itemize}
+
+    \subsection{Results: Overall}\label{results-overall}
+
+Looking at the average performance across all simulations, CW performed
+better than OLS, ridge and CW performed similarly, and combining with
+ridge with CW performed the best. However, depending on the situation
+these relative performances shifted.
+
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{P215_Paper_files/NewPlot2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Results: Signal-to-Noise}\label{results-signal-to-noise}
+
+Averaging across all other parameters, we looked how the signal-to-noise
+ratio affected model performance. In general, prediction accuracy
+increased with SNR, however estimation MSE did not. Importantly, the
+effect of shrinking the estimates (either with ridge or CW) had
+improvements over OLS in cases of low SNR (0.01, 0.1) for both
+estimation and prediction.
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{P215_Paper_files/P215_Paper_7_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{P215_Paper_files/P215_Paper_8_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Results: B variance}\label{results-b-variance}
+
+Next, we averaged across all parameters except bsig, which determined
+the variance of B for each predictor. Low variance meant that B's were
+similar across voxels for a given predictor (left), whereas high
+variance meant that each voxel could have different B's (right). At each
+level of B variance, the SNR was kept constant by adjusting $ \sigma $
+so the effects for this parameter on performance could be isolated.
+
+The clearest benefit from CW is seen in prediction. For low variance in
+B's, CW applied to both OLS and Ridge improves performance (right
+green/purple). This benefit decreases as the variance in the B's
+increases. For estimation MSE, Ridge actually seems to do better than
+CW, but more simulations need to be run, and the results might need to
+be subset by other factors.
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{P215_Paper_files/P215_Paper_10_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{P215_Paper_files/P215_Paper_11_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    
+   \subsection{Results: Cross-validated Curds-Whey}\label{}
+ 
+ To test the performance of cross-validated Curds-Whey, we ran 100 more simulations. We used cross-validation to choose the diagonal elements of $D$ in the shrinkage matrix $S=TDT^{-1}$, using both OLS and Ridge to get our $ \hat Y$. These models both perform substantially better than the OLS-Curds-Whey and Ridge-Curds-Whey models that generalized cross validation. This is shown by better prediction MSE (right) and prediction correlation (bottom). 
+ 
+     
+        \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{P215_Paper_files/NewPlot1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    
+    
+    
+    
+    \section{Part II: Simulations (fMRI)}\label{part-ii-simulations-fmri}
+
+\subsection{Summary}
+
+In this section, we wanted to extend the simulations to data more
+similar to actual fMRI data. We simulated a simple experiment in which two
+conditions occurred in a random sequence for a total of 400 seconds.
+Each condition lasted 1 second (e.g.~like an image presentation) and
+there was a delay between conditions. Several regions were simulated
+which each responded to one condition or the other. These are shown in
+the left two panels below. These spatial effects `B1' and `B2' were
+multiplied by the design matrix to create a temporal response for each
+voxel. Several types of noise were then added. For this particular
+simulation, we added zero-mean Guassian and AR1 noise to each voxel's
+time course, and then spatial noise in the form of a gaussian random
+field with 5 voxel full-width-half-maximum (FWHM). The spatial average of the final simulated data
+is shown on the far right panel. The data simulation was done using a
+combination of in-house software, and some basic functions
+(e.g.~gaussian random field) from the R package neuRosim.
+
+
+
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{P215_Paper_files/P215_Paper_14_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Search-Light Curds-Whey}\label{search-light-curds-whey}
+
+Instead of applying CCA to all voxels and our two predictors, we
+embedded CCA in a searchlight procedure. For each voxel, we took the 25
+nearest voxels by euclidean distance. CCA was then calculated on these
+voxels and the predictors to get a shrinkage matrix. This matrix was
+applied to the predictions of voxel in the center of the searchlight,
+and the procedure was repeated for all voxels. Below is an example of
+the searchlight applied to the simulation.
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{P215_Paper_files/P215_Paper_16_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Results}\label{results}
+
+In this simulation, we only looked at OLS and OLS-CW. Assessed by the
+same metrics as above, CW showed improvements over OLS.
+
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{P215_Paper_files/NewPlot3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Looking at maps of the B estimates (below), it is apparent that OLS-CW
+gave lower B weights to noise voxels that had B=0 (upper sections
+of the brain maps).
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{P215_Paper_files/P215_Paper_21_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section{Part III: fMRI Dataset}\label{part-iii-fmri-dataset}
+
+\subsection{Summary}
+
+Face perception is essential to human social interactions on a daily
+basis. It enables us to identify a virtually unlimited number of people,
+interpret a wide range of facial emotional cues, and draw rapid trait
+inferences from facial appearance. These abilities are made possible by
+a network of brain regions that seem to be largely dedicated to face
+perception, including the fusiform face area (FFA), occipital face area
+(OFA), and posterior superior temporal sulcus (pSTS).
+
+While it is well understood that these brain regions activate in
+response to face images, it is less clear what aspects of face
+processing they each perform. Our approach is to measure brain activity
+in response to a large set of naturalistic faces, then use
+L2-regularized regression to see if we can predict brain activity as a
+function of different features of the images. Figure 1 shows how this
+works.
+
+In general, we can compare the ability of different feature models to
+predict voxels in different regions across cortex. Here, for simplicity,
+we use only a semantic model. Membership of each face image in 102
+semantic categories was independently determined by five naive raters
+and then averaged. 53 terms described variant facial attributes
+including 10 aspects of facial posture (e.g.~mouth open, squinting) and
+43 emotional expressions. The other 49 terms described invariant facial
+attributes such as gender and race.
+
+The model was fit separately to the 1.92 hours of estimation data
+collected within each individual voxel. To model the slow hemodynamic
+response, variables within each model were assigned distinct
+time-inseparable finite impulse response filters with four bins at
+delays 2-4 s, 4-6 s, 6-8 s, and 8-10 s after stimulus onset. All model
+parameters were simultaneously fit using L2-regularized linear
+regression. The regularization parameter (λ) for regression was selected
+with nine-fold cross-validation. Each voxel's prediction scores were
+taken as the correlation coefficient (Pearson's r) between the actual
+and predicted BOLD responses for that voxel. The optimal λ for all
+voxels was determined by testing ten values and selecting the one for
+which the maximum number of voxels had prediction scores exceeding a
+threshold r value (0.06). The model-fitting procedures were performed
+with in-house software written in Matlab (MathWorks). After fitting each
+voxel-wise encoding model, the proportion of variance explained in each
+voxel was estimated by predicting the BOLD responses to the validation
+set and correlating these predictions with the data.
+
+\subsection{Methods}\label{methods}
+
+Our goal was to use multi-output regression to improve the predictions
+of the semantic model. To that end, we tested two different formulations
+of multi-output regression as described above: searchlight
+Ridge-Curds-and-Whey and searchlight Double-Ridge. For each voxel, we
+only used the 25 nearest neighbors in either Ridge-CW or the second step
+of Double-Ridge. For both methods, the out-of-sample response estimates
+obtained during cross-validation to select λ in the estimation set were
+taken as \(\hat Y\). For double-ridge, we used an additional 9-fold
+cross-validation within the estimation set to choose \(\gamma\) and then
+retrained the second ridge step across all of the estimation data to
+estimate \(\hat S\) for this \(\gamma\). Finally, we adjusted our
+predictions of Y in the validation set with \(S*\hat Y\) and correlated
+these adjusted predictions with our measured BOLD responses (Y). These
+correlations were compared to the correlations between our original
+\(\hat Y\) and Y.
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{P215_Paper_files/methodfig1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+
+
+\subsection{Results}
+        
+    These figures show a scatter plot of the voxel-wise prediction
+correlations when using searchlight Ridge-CW compared to Ridge (left),
+and searchlight Double-Ridge compared to Ridge (right). Points lying
+above the line correspond to voxels where there was an improvement using
+the new multi-response methods. In both cases, multi-response methods
+clearly improved correlations for the majority of relevant voxels,
+albeit by a small margin.
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{P215_Paper_files/P215_Paper_25_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Below, we show the each voxel's prediction correlation on an inflated
+representation of the subject's cortex for Ridge (left) vs Double-Ridge
+(right). Outlined in green, is a region where noticeable improvement
+occurred.
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{P215_Paper_files/predmap1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+
+
+Lastly, we used cross-validated Curds-Whey on the fMRI data. We achieved similar levels of performance to both Ridge-CW (using gcv) and Double-Ridge. We are currently investigating whether improvements can be made by adjusting the cross-validated Curds-Whey.     
+    
+    
+    \end{document}
